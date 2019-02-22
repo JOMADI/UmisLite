@@ -3,16 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.umislite.HomeFragment">
+    tools:context="com.babcock.umislite.HomeFragment">
 
     <View android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="@drawable/toolbar_dropshadow"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <include layout="@layout/course_update_item"/>
 
 </FrameLayout>
