@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.babcock.umislite">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Profile"
+            android:name=".ProfileActivity"
             android:label="@string/profile"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -39,10 +45,10 @@
                 android:value=".MainActivity" />
         </activity>
 
-        <activity android:name=".EditProfile" android:parentActivityName=".Profile">
+        <activity android:name=".EditProfile" android:parentActivityName=".ProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Profile" />
+                android:value=".ProfileActivity" />
         </activity>
     </application>
 

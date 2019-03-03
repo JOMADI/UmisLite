@@ -15,8 +15,11 @@ public class SettingsActivity extends AppCompatActivity {
 
     private static final String PARENT_TAG = "PARENT";
 
-    public static Intent newIntent(Context context){
+    public static Intent newIntent(Context context, Profile studentInfo){
         Intent intent = new Intent(context, SettingsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("StudentInfo", studentInfo);
+        intent.putExtras(bundle);
         return intent;
     }
 
@@ -36,8 +39,9 @@ public class SettingsActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
 
         TextView editProfile = findViewById(R.id.edit_profile);
+        Profile profile = (Profile) getIntent().getExtras().getSerializable("StudentInfo");
         editProfile.setOnClickListener(v -> {
-            Intent intent = EditProfile.newIntent(this);
+            Intent intent = EditProfile.newIntent(this, profile);
             intent.putExtra(PARENT_TAG, false);
             startActivity(intent);
         });

@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,15 +23,8 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class MoreFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private static final String TAG = "MoreFragment";
+    private Profile profile;
 
     public MoreFragment() {
         // Required empty public constructor
@@ -44,20 +38,21 @@ public class MoreFragment extends Fragment {
 //     * @param param2 Parameter 2.
 //     * @return A new instance of fragment MoreFragment.
 //     */
-    public static MoreFragment newInstance() {
-        //        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-        return new MoreFragment();
+    public static MoreFragment newInstance(Profile studentInfo) {
+        MoreFragment moreFragment = new MoreFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("StudentInfo", studentInfo);
+        moreFragment.setArguments(args);
+        return moreFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            profile = (Profile) getArguments().getSerializable("StudentInfo");
+            assert profile != null;
+            Log.d(TAG, getArguments().toString());
         }
     }
 
@@ -68,7 +63,7 @@ public class MoreFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_more, container, false);
         ConstraintLayout settings = v.findViewById(R.id.settings);
         settings.setOnClickListener(view -> {
-            Intent intent = SettingsActivity.newIntent(getActivity());
+            Intent intent = SettingsActivity.newIntent(getActivity(), profile);
             startActivity(intent);
         });
         return v;

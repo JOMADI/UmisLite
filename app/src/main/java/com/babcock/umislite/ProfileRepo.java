@@ -1,61 +1,75 @@
 package com.babcock.umislite;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.io.Serializable;
 
-public class Profile implements Serializable {
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    @SerializedName("StudentId")
+@Entity
+public class ProfileRepo implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int Id;
+
+    @ColumnInfo(name = "StudentId")
     private int studentId;
 
-    @SerializedName("DepartmentId")
+    @ColumnInfo(name = "DepartmentId")
     private int departmentId;
 
-    @SerializedName("MatricNo")
+    @ColumnInfo(name = "MatricNo")
     private String matricNumber;
 
-    @SerializedName("FirstName")
+    @ColumnInfo(name = "FirstName")
     private String firstName;
 
-    @SerializedName("MiddleName")
+    @ColumnInfo(name = "MiddleName")
     private String middleName;
 
-    @SerializedName("LastName")
+    @ColumnInfo(name = "LastName")
     private String lastName;
 
-    @SerializedName("Level")
+    @ColumnInfo(name = "Level")
     private String level;
 
-    @SerializedName("Email")
+    @ColumnInfo(name = "Email")
     private String email;
 
-    @SerializedName("MobileNumber")
+    @ColumnInfo(name = "MobileNumber")
     private String mobileNumber;
 
-    @SerializedName("Address")
+    @ColumnInfo(name = "Address")
     private String address;
 
-    @SerializedName("ProfilePic")
+    @ColumnInfo(name = "ProfilePic")
     private String profilePicture;
 
-    @SerializedName("DeptCode")
+    @ColumnInfo(name = "DeptCode")
     private String deptCode;
 
-    @SerializedName("DeptName")
+    @ColumnInfo(name = "DeptName")
     private String deptName;
 
-    @SerializedName("SchoolCode")
+    @ColumnInfo(name = "SchoolCode")
     private String schoolCode;
 
-    @SerializedName("SchoolName")
+    @ColumnInfo(name = "SchoolName")
     private String schoolName;
 
-    @SerializedName("ProgramCode")
+    @ColumnInfo(name = "ProgramCode")
     private String programCode;
 
-    @SerializedName("ProgramName")
+    @ColumnInfo(name = "ProgramName")
     private String programName;
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int id) {
+        Id = id;
+    }
 
     public int getStudentId() {
         return studentId;
@@ -195,8 +209,9 @@ public class Profile implements Serializable {
 
     @Override
     public String toString() {
-        return "Profile{" +
-                "studentId=" + studentId +
+        return "ProfileRepo{" +
+                "Id=" + Id +
+                ", studentId=" + studentId +
                 ", departmentId=" + departmentId +
                 ", matricNumber='" + matricNumber + '\'' +
                 ", firstName='" + firstName + '\'' +

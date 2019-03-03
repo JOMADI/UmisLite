@@ -5,7 +5,11 @@
     tools:context="com.babcock.umislite.Courses.ToDo">
 
 
-    <include layout="@layout/course_item"/>
-
+    <!--<include layout="@layout/course_item"/>-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_courses_todo"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </FrameLayout>

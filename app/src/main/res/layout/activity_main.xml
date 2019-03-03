@@ -57,7 +57,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/kello"
+                    android:src="@drawable/loading"
                     android:clickable="true"
                     android:focusable="true"
                     android:background="?attr/selectableItemBackgroundBorderless"/>

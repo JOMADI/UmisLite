@@ -4,9 +4,19 @@
     android:layout_height="match_parent"
     tools:context="com.babcock.umislite.Discover.SchoolsFragment">
 
+    <!--<include layout="@layout/schools_item"/>-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_schools"
-        android:scrollbars="vertical"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <!--<ProgressBar-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--style="@style/Widget.AppCompat.ProgressBar"-->
+        <!--android:background="?attr/indeterminateProgressStyle"-->
+        <!--android:id="@+id/pb"-->
+        <!--android:layout_height="wrap_content" />-->
 </FrameLayout>
