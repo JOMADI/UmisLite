@@ -177,8 +177,6 @@ public class SchoolsFragment extends Fragment {
                 Log.d(TAG, "Loading Room Data");
                 schoolsAdapter.notifyDataSetChanged();
             });
-
-
         });
 
         thread.start();

@@ -34,10 +34,12 @@
     <View android:layout_width="match_parent"
         android:layout_height="4dp"
         android:background="@drawable/toolbar_dropshadow"/>
-
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager_courses"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <!--<include layout="@layout/view_course_item"/>-->
+
 
 </LinearLayout>

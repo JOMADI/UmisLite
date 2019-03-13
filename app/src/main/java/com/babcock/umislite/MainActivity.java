@@ -1,10 +1,11 @@
 package com.babcock.umislite;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -17,19 +18,20 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
-import com.babcock.umislite.Courses.CoursesFragment;
+import com.babcock.umislite.Courses.Courses;
 
+import com.babcock.umislite.Courses.CoursesFragment;
 import com.babcock.umislite.Discover.DiscoverFragment;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -40,25 +42,39 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final String IP_ADDRESS = "192.168.43.93:8080";
-    private static final String URL = "http://" + IP_ADDRESS + "/umislite/student_info.php?id=1";
+    private static String URL = "http://" + IP_ADDRESS + "/umislite/student_info.php?id=";
 
-    private TextView toolbarTitle;
+    private AppCompatTextView toolbarTitle;
     private Profile studentInfo;
     private AppCompatImageButton cardView;
+    private BottomNavigationView bottomNavigationView;
 
     private final HomeFragment homeFragment = HomeFragment.newInstance();
     private final DiscoverFragment discoverFragment = DiscoverFragment.newInstance();
-    private final CoursesFragment coursesFragment = CoursesFragment.newInstance();
-    // private final ProfileFragment profileFragment = ProfileFragment.newInstance();
+    private CoursesFragment coursesFragment;
+    private ProfileFragment profileFragment;
     private MoreFragment moreFragment;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
 
     Fragment active = homeFragment;
 
+    public static Intent newIntent(Context context, int id){
+        Intent i = new Intent(context, MainActivity.class);
+        i.putExtra("StudentId", id);
+        return i;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        try {
+            int id = Objects.requireNonNull(getIntent().getExtras()).getInt("StudentId");
+            URL += id;
+        }catch (NullPointerException ignored){
+
+        }
 
         //AppBarLayout appBarLayout = findViewById(R.id.appbar_layout);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -69,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         final Context context = getApplicationContext();
 
@@ -115,12 +131,12 @@ public class MainActivity extends AppCompatActivity {
                     toolbarTitle.setText("Courses");
                     return true;
 
-//                case R.id.profile:
-//                    fragmentManager.beginTransaction().hide(active).show(profileFragment).commit();
-//                    active = profileFragment;
-//                    //actionBar.setTitle("ProfileActivity");
-//                    toolbarTitle.setText("ProfileActivity");
-//                    return true;
+                case R.id.profile:
+                    fragmentManager.beginTransaction().hide(active).show(profileFragment).commit();
+                    active = profileFragment;
+                    //actionBar.setTitle("ProfileActivity");
+                    toolbarTitle.setText("Profile");
+                    return true;
 
                 case R.id.more:
                     fragmentManager.beginTransaction().hide(active).show(moreFragment).commit();
@@ -134,17 +150,17 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-
-
     }
 
     private void setUpBottomViewFragments(){
 
         fragmentManager.beginTransaction().add(R.id.main_container, moreFragment, "moreFragment").hide(moreFragment).commit();
-        //   fragmentManager.beginTransaction().add(R.id.main_container, profileFragment, "profileFragment").hide(profileFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, coursesFragment, "coursesFragment").hide(coursesFragment).commit();
         fragmentManager.beginTransaction().add(R.id.main_container, discoverFragment, "discoverFragment").hide(discoverFragment).commit();
-        fragmentManager.beginTransaction().add(R.id.main_container, homeFragment, "homeFragment").commit();
+        fragmentManager.beginTransaction().add(R.id.main_container, homeFragment, "homeFragment").hide(homeFragment).commit();
+        fragmentManager.beginTransaction().add(R.id.main_container, profileFragment, "profileFragment").commit();
+
+        bottomNavigationView.setSelectedItemId(R.id.profile);
 
     }
 
@@ -177,11 +193,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "Loading Room Data");
                 studentInfo = profile;
                 setUpImage(profile);
+                profileFragment = ProfileFragment.newInstance(profile.getDepartmentId(), profile.getLevel(), profile);
+                moreFragment = MoreFragment.newInstance(profile);
+                coursesFragment = CoursesFragment.newInstance(profile.getDepartmentId(), profile.getLevel());
+                setUpBottomViewFragments();
             });
 
-        });
 
+        });
         thread.start();
+
     }
 
     private void fetchFromServer(Context context) {
@@ -202,11 +223,14 @@ public class MainActivity extends AppCompatActivity {
         studentInfo = studentList.get(0);
 
         setUpImage(studentInfo);
+        profileFragment = ProfileFragment.newInstance(studentInfo.getDepartmentId(), studentInfo.getLevel(), studentInfo);
         moreFragment = MoreFragment.newInstance(studentInfo);
-
+        coursesFragment = CoursesFragment.newInstance(studentInfo.getDepartmentId(), studentInfo.getLevel());
         setUpBottomViewFragments();
         saveTask();
     }
+
+
 
     private void setUpImage(Profile studentInfo){
         String imageUrl = "http://" + IP_ADDRESS + "/umislite/studentimages/" + studentInfo.getProfilePicture();

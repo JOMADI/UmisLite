@@ -8,19 +8,19 @@
             android:title="@string/home" />
 
         <item
-            android:id="@+id/discover"
-            android:icon="@drawable/ic_discover"
-            android:title="@string/discover" />
-
-        <item
             android:id="@+id/courses"
             android:icon="@drawable/ic_courses"
             android:title="@string/courses" />
 
-        <!--<item-->
-            <!--android:id="@+id/profile"-->
-            <!--android:icon="@drawable/ic_profile"-->
-            <!--android:title="@string/profile" />-->
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_profile"
+            android:title="@string/profile" />
+
+        <item
+            android:id="@+id/discover"
+            android:icon="@drawable/ic_discover"
+            android:title="@string/discover" />
 
         <item
             android:id="@+id/more"

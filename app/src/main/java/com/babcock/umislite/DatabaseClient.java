@@ -16,7 +16,7 @@ public class DatabaseClient {
 
         //creating the app database with Room database builder
         //alldata is the name of the database
-        appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "alldata").build();
+        appDatabase = Room.databaseBuilder(mCtx, AppDatabase.class, "umislite").addMigrations(AppDatabase.MIGRATION_1_2).build();
     }
 
     public static synchronized DatabaseClient getInstance(Context mCtx) {

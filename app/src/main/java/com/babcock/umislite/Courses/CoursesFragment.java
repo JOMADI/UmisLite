@@ -4,6 +4,7 @@ package com.babcock.umislite.Courses;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.babcock.umislite.R;
 import com.babcock.umislite.TabAdapter;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -28,8 +30,8 @@ public class CoursesFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private int deptId;
+    private String level;
 
 
     public CoursesFragment() {
@@ -44,20 +46,21 @@ public class CoursesFragment extends Fragment {
 //     * @param param2 Parameter 2.
 //     * @return A new instance of fragment CoursesFragment.
 //     */
-    public static CoursesFragment newInstance() {
-        //        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-        return new CoursesFragment();
+    public static CoursesFragment newInstance(int deptId, String level) {
+        CoursesFragment coursesFragment = new CoursesFragment();
+        Bundle args = new Bundle();
+        args.putInt("DeptId", deptId);
+        args.putString("Level", level);
+        coursesFragment.setArguments(args);
+        return coursesFragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            deptId = getArguments().getInt("DeptId");
+            level = getArguments().getString("Level");
         }
     }
 
@@ -70,8 +73,8 @@ public class CoursesFragment extends Fragment {
         TabLayout tabLayout = v.findViewById(R.id.tabs_courses);
 
         TabAdapter tabAdapter = new TabAdapter(getChildFragmentManager());
-        tabAdapter.addFragment(ToDo.newInstance(), "TO-DO");
-        tabAdapter.addFragment(SelectedFragment.newInstance(R.layout.fragment_selected), "SELECTED");
+        tabAdapter.addFragment(ToDo.newInstance(deptId, level), "TO-DO");
+        tabAdapter.addFragment(SelectedFragment.newInstance(), "SELECTED");
         tabAdapter.addFragment(SpecialFragment.newInstance(), "SPECIAL");
 
         viewPager.setAdapter(tabAdapter);

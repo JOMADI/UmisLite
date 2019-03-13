@@ -1,5 +1,7 @@
 package com.babcock.umislite;
 
+import com.babcock.umislite.Courses.Courses;
+
 import java.util.List;
 
 import androidx.room.Dao;
@@ -23,4 +25,10 @@ public interface RepoDao {
 
     @Delete
     void delete(ProfileRepo profileRepo);
+
+    @Query("SELECT * FROM CoursesRepo")
+    List<CoursesRepo> getAllCourses();
+
+    @Insert
+    void insert(CoursesRepo coursesRepo);
 }

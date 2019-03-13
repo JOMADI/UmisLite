@@ -3,6 +3,7 @@ package com.babcock.umislite;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -78,7 +79,7 @@ public class ProfileActivity extends AppCompatActivity {
         initializeProfile(studentInfo);
 
         TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager());
-        tabAdapter.addFragment(SelectedFragment.newInstance(R.layout.fragment_course_profile), "COURSES SELECTED");
+        tabAdapter.addFragment(SelectedFragment.newInstance(), "COURSES SELECTED");
         tabAdapter.addFragment(BookmarkFragment.newInstance(), "BOOKMARKS");
 
         viewPager.setAdapter(tabAdapter);
@@ -130,6 +131,14 @@ public class ProfileActivity extends AppCompatActivity {
                 Intent intent = EditProfile.newIntent(this, studentInfo);
                 intent.putExtra(PARENT_TAG, true);
                 startActivity(intent);
+                return true;
+
+            case R.id.signout:
+                Intent i = WelcomeActivity.newIntent(this);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    finishAffinity();
+                }
+                startActivity(i);
                 return true;
         }
         return super.onOptionsItemSelected(item);
