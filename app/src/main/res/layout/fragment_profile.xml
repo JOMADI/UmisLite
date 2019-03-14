@@ -117,7 +117,7 @@
                 android:id="@+id/tabs_courses"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:tabMode="scrollable"
+                app:tabMode="fixed"
                 app:tabGravity="fill"
                 android:layout_gravity="bottom">
             </com.google.android.material.tabs.TabLayout>
@@ -127,7 +127,7 @@
     </com.google.android.material.appbar.AppBarLayout>
     <View android:layout_width="match_parent"
         android:layout_height="4dp"
-        android:background="@drawable/toolbar_dropshadow"
+        android:background="@drawable/toolbar_drop_shadow"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <androidx.viewpager.widget.ViewPager

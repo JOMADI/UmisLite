@@ -32,6 +32,7 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -43,8 +44,8 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class ToDo extends Fragment {
 
-    private static final String TAG = "TODOFragment";
     private List<Courses> serverList;
+    private static final String TAG = "TODOFragment";
     private ArrayList<Courses> coursesArrayList;
     private CourseAdapter courseAdapter;
     private static final String IP_ADDRESS = "192.168.43.93:8080";
@@ -101,6 +102,8 @@ public class ToDo extends Fragment {
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         //bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 
+        AppCompatTextView courseName = bottomSheet.findViewById(R.id.course_name);
+        AppCompatTextView courseDesc = bottomSheet.findViewById(R.id.course_desc_content);
         AppCompatButton joinCourse = bottomSheet.findViewById(R.id.join_course);
         joinCourse.setOnClickListener(v1 -> {
             Toast.makeText(getActivity(), "COURSE SELECTED", Toast.LENGTH_LONG).show();

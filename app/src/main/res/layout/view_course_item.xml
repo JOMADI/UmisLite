@@ -88,7 +88,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/text_string"
+        android:text="C++ is a general-purpose programming language that was developed as an extension of the C language. It has imperative, object-oriented and generic programming features, while also providing facilities for low-level memory manipulation."
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         app:layout_constraintBottom_toTopOf="@id/join_course"
         app:layout_constraintEnd_toEndOf="parent"
